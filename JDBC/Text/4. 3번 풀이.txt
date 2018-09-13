@@ -1,0 +1,35 @@
+--관리자 로그인
+conn system/oracle;
+--계정 생성
+create user manager identified by master1234;
+--권한 부여
+grant dba to manager;
+--로그인
+conn manager/master1234;
+--테이블 생성
+create table pension(
+name varchar2(12),
+region varchar2(6),
+people number,
+price number
+);
+--데이터 추가
+insert into pension values('힐링펜션','경기',2,150000);
+insert into pension values('건강펜션','서울',4,200000);
+insert into pension values('애견펜션','강원',4,300000);
+insert into pension values('스파펜션','강원',2,170000);
+insert into pension values('온천펜션','경기',3,220000);
+commit;
+col name for a12;
+col region for a6;
+col people for 99;
+col price for 9999999;
+select * from pension;
+
+
+
+
+
+
+
+

@@ -1,0 +1,20 @@
+create table phone(
+id number not null unique,
+name varchar2(30) not null,
+telecom varchar2(15) check(telecom in('SK', 'KT', 'LG', 'æÀ∂„∆˘')),
+price number default 0 check(price >= 0)
+);
+
+insert into phone values(null, null, null, null);
+insert into phone values(1, '', '', 100);
+insert into phone values(1, '∞∂∑∞Ω√≥Î∆Æ9', 'SK', 1300000);
+insert into phone values(2, '∞∂∑∞Ω√≥Î∆Æ9', 'ITBANK', 1300000);
+insert into phone values(3, '∞∂∑∞Ω√≥Î∆Æ9', 'LG', -1300000);
+
+
+
+
+
+
+
+

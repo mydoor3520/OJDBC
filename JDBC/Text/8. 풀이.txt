@@ -1,0 +1,7 @@
+create table testuser(
+id varchar2(20) not null unique,
+pw varchar2(20) not null,
+nick varchar2(18) not null unique,
+money number check(money >= 0),
+grade varchar2(9) not null check(grade in('일반','VIP','관리자'))
+);

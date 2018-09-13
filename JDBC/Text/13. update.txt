@@ -1,0 +1,29 @@
+
+- 관리자의 마일리지를 삭제
+	update testuser set money=0 where grade = '관리자';
+
+- VIP 회원에게 1000점의 마일리지 포인트를 증정
+	update testuser set money += 1000 where grade = 'VIP';	(x)
+	update testuser set money =+ 1000 where grade = 'VIP';	(x)
+	update testuser set money = money + 1000 where grade = 'VIP';
+
+- 최근 3일간 가입한 회원의 마일리지를 10% 증가
+	update testuser set money = money * 1.1 
+	where joindate >= sysdate - 3 and joindate <= sysdate;
+
+	update testuser set money = money * 1.1 
+	where joindate between sysdate-3 and sysdate;
+
+	update testuser set money = money * 1.1 
+	where joindate >= to_date(to_char(sysdate, 'YYYYMMDD'), 'YYYYMMDD');
+
+
+
+
+
+
+
+
+
+
+

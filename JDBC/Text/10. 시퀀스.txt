@@ -1,0 +1,42 @@
+시퀀스	번호를 부여하는 생성 도구
+	지정한 옵션에 의해 번호를 생성
+	삭제가 되더라도 한번 발행한 번호는 되돌아오지 않는다
+	
+생성	create sequence 이름 [옵션];
+조회	select * from user_sequences;
+변경	alter sequence 이름 [옵션];
+삭제	drop sequence 이름;
+
+(샘플 테이블)
+
+create table student(
+no number primary key,
+name varchar2(15) not null
+);
+
+create sequence student_seq;
+
+insert into student values(student_seq.nextval, '홍길동');
+
+(옵션을 부여한 시퀀스 생성)
+create sequence test_seq
+minvalue 1000
+maxvalue 9999
+start with 1100
+increment by 100
+--cycle or nocycle
+--cache 20 or nocache
+;
+
+insert into student values(test_seq.nextval, '테스트');
+
+
+
+
+
+
+
+
+
+
+

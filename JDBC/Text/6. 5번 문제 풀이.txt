@@ -1,0 +1,44 @@
+--관리자 로그인
+conn system/oracle;
+--계정 생성
+create user player identified by student;
+--권한 부여
+grant dba to player;
+--로그인
+conn player/student;
+
+--테이블
+drop table character;
+create table character(
+id varchar2(30),
+job varchar2(15),
+lev number,
+money number,
+attack number,
+defence number
+);
+
+--데이터
+insert into character values('용기','전사',50, 50000, 500, 200);
+insert into character values('지존','전사',45,25000,400, 150);
+insert into character values('노을','마법사',48,100000,660,50);
+commit;
+
+col id for a5;
+col job for a8;
+col lev for 99;
+col money for 999999;
+col attack for 999;
+col defence for 999;
+select * from character;
+
+
+
+
+
+
+
+
+
+
+

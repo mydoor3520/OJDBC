@@ -1,0 +1,40 @@
+<주요 오라클 명령 모음>
+
+로그인
+connect 아이디/비밀번호;
+conn 아이디/비밀번호;
+
+(계정)
+생성	create user 아이디 identified by 비밀번호;
+변경	alter user 아이디 identified by 비밀번호;
+삭제	drop user 아이디;
+확인	show user;
+
+(권한)
+부여	grant 권한 to 아이디;
+회수	revoke 권한 to 아이디;
+
+(테이블)
+생성	create table 이름(항목정보);
+확인	desc 이름
+삭제	drop table 이름;
+변경	alter table add(항목정보)
+	alter table modify(항목정보)
+	alter table drop(항목)
+
+(데이터)
+추가	insert into 테이블(항목) values(값);
+목록	select * from 테이블;
+	select 항목 from 테이블 [조건] [그룹] [정렬];
+수정	update 테이블 set 변경할 데이터 정보 [조건];
+삭제	delete 테이블 [조건];
+확정	commit;
+취소	rollback;
+
+
+
+
+
+
+
+

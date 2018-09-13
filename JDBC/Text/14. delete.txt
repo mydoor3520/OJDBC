@@ -1,0 +1,11 @@
+삭제 : delete
+	매우 조심해야 하는 명령
+	PK를 조건으로 걸어서 주로 사용
+
+형식 : delete 테이블이름 [조건];
+
+- 관리자 삭제
+delete testuser where grade='관리자';
+
+- 마일리지가 가장 많은 사람 1명 삭제
+delete testuser where money=(select max(money) from testuser);

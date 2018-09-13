@@ -1,0 +1,19 @@
+데이터베이스
+ - 데이터를 저장하는 장소
+ - 저장된 데이터
+
+DBMS
+ - DataBase Management System
+ - 데이터베이스를 관리하는 시스템
+ - 보안, 동기화를 자동으로 처리
+ - 오라클, mysql, sql-server(ms-sql), mongoDB, H2, SQLite, ...
+
+ - 관계형 데이터베이스 vs No-SQL
+
+
+
+
+
+
+
+

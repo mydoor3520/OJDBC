@@ -1,0 +1,183 @@
+(항목)
+testuser의 모든 항목 조회
+select * from testuser;
+
+testuser의 id와 pw만 조회
+select id, pw from testuser;
+
+항목의 이름을 바꾸어 조회
+select id as 아이디, pw as 비밀번호 from testuser;
+
+(조건)	where 조건식
+- money가 1000원 미만인 유저 조회
+select * from testuser where money < 1000;
+
+- money가 1000원 이상 2000원 이하인 유저 조회
+select * from testuser where money >= 1000 && money <= 2000;(x)
+select * from testuser where money >= 1000 and money <= 2000;(o)
+select * from testuser where money between 1000 and 2000;
+
+- id가 c로 시작하는 유저 조회
+select * from testuser where id >= 'c' and id < 'd';
+select * from testuser where id like 'c%';
+
+- id에 i,t,b,a,n,k 중 한글자라도 들어간 회원을 찾아서 출력
+select * from testuser 
+where id like '%i%' or id like '%t%' or id like '%b%'
+or id like '%a%' or id like '%n%' or id like '%k%';
+
+select * from testuser where regexp_like(id, '[itbank]');
+
+- 2017년 이후에 등록한 유저 조회
+select * from testuser where joindate >= '17/01/01';
+select * from testuser where joindate >= to_date('20170101', 'YYYYMMDD');
+select * from testuser where joindate like '17/%';
+
+- 올해(2018년)에 등록한 유저 조회
+select * from testuser where joindate >= '18/01/01';
+select * from testuser where joindate >= to_date('20180101', 'YYYYMMDD');
+select * from testuser where joindate like '18/%';
+
+select * from testuser 
+where joindate between to_date('20180101', 'YYYYMMDD') and sysdate;
+select * from testuser 
+where joindate >= to_date('20180101', 'YYYYMMDD') and joindate <= sysdate;
+
+- 올해 상반기(2018년 1월 ~ 6월)에 등록한 유저 조회
+select * from testuser 
+where joindate between 
+to_date('20180101000000', 'YYYYMMDDHH24MISS') and 
+to_date('20180630235959', 'YYYYMMDDHH24MISS');
+
+- 여름에 등록한 유저를 조회(연도 무관)
+select * from testuser where joindate like '%/06/%' or joindate like '%/07/%' or joindate like '%/08/%';
+select * from testuser where regexp_like(joindate, '/0[678]/');
+select * from testuser where extract(month from joindate) >= 6 and extract(month from joindate) <= 8;
+
+(함수)
+ - sum(항목)	합계
+select sum(money) from testuser;
+select sum(money) 합계 from testuser;
+select sum(money) as 합계 from testuser;
+
+ - avg(항목)	평균
+select avg(money) from testuser;
+
+ - max(항목)	최대
+select max(money) from testuser;
+
+ - min(항목)	최소
+select min(money) from testuser;
+
+ - count(항목)	개수
+select count(money) from testuser;--null을 세지 못함
+select count(*) from testuser;
+
+[문제]	가장 마일리지가 많은 유저의 아이디를 조회
+
+	select id from testuser where money=max(money);	(x)
+
+	select id from testuser where money=(select max(money) from testuser);
+
+(내장속성)
+	select rownum from testuser;
+	select * from testuser;
+	select rownum, * from testuser;	(x)
+	select rownum, testuser.* from testuser;
+
+[문제]	마일리지가 2천원 이상인 유저들을 조회하며 순서대로 번호를 부여
+
+	select rownum, testuser.* from testuser where money >= 2000;
+
+	select rownum, TMP.* from (select * from testuser where money >= 2000)TMP;
+	
+(정렬)	데이터를 순차적으로 늘어놓는것
+	asc	오름차순(ascending)
+	desc	내림차순(descending)
+	조건보다 뒤에 와야함
+
+- testuser를 마일리지 오름차순으로 정렬
+select * from testuser order by money;
+select * from testuser order by money asc;
+
+select * from testuser order by money desc;
+
+- 마일리지가 2천원 이상인 회원을 id순서로 정렬
+select * from testuser where money >= 2000 order by id asc;
+
+- 마일리지 1등부터 5등까지 조회
+
+select rownum, A.* from (
+	select * from testuser order by money desc
+)A where rownum <= 5 and rownum >= 1;
+
+
+select * from(
+	select rownum as rn, A.* from (
+		select * from testuser order by money desc, id asc, joindate desc
+	)A 
+) where rn between 6 and 10;
+
+(그룹)	원하는 기준에 따라 묶어서 확인
+	일반 데이터는 확인이 불가하고 그룹 함수만 사용 가능
+	그룹별 id(x), 그룹별 합계(o)
+
+- 회원 등급별 마일리지 합계
+select grade, sum(money) from testuser group by grade;
+
+- 회원 등급별 마일리지 합계 (합계 오름차순)
+select grade, sum(money) from testuser group by grade order by sum(money) asc;
+
+select grade, sum(money) from testuser 
+where sum(money) >= 10000 group by grade order by sum(money) asc;	(x)
+
+select grade, sum(money) from testuser 
+group by grade having sum(money) >= 10000 order by sum(money) asc;	(o)
+
+- testuser를 월별로 구분하여 해당 기간에 가입한 인원수를 출력	(월별 / 연도별)
+select to_char(joindate, 'YYYY-MM') as 기간, count(*) as 가입자수 
+from testuser 
+group by to_char(joindate, 'YYYY-MM')
+order by to_char(joindate, 'YYYY-MM') asc;
+
+(듀얼 테이블)	주어진 데이터 저장소에서 데이터를 확인
+		주어진 데이터 저장소가 없으면?(테이블이 없으면)
+		테이블 여러개를 조회하고 싶으면?
+
+- 현재 시간을 출력
+	select sysdate from dual;
+
+- 간단한 계산식 결과를 출력
+	select 111 * 111 from dual;
+
+- 여러 테이블의 데이터 개수를 조회
+	select (
+		select count(*) from phone
+	) as phone, (
+		select count(*) from menu
+	) as menu, (
+		select count(*) from testuser
+	) as testuser 
+	from dual;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

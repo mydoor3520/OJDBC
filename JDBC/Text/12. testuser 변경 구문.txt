@@ -1,0 +1,25 @@
+drop table testuser;
+create table testuser(
+id varchar2(20) not null unique,
+pw varchar2(20) not null,
+nick varchar2(18) not null unique,
+money number check(money >= 0),
+grade varchar2(9) not null check(grade in('일반','VIP','관리자')),
+joindate date not null
+);
+insert into testuser values('rkdeogns','rkdeogns','강대훈',1628,'관리자',to_date('20170910', 'YYYYMMDD'));
+insert into testuser values('rkdtjdwls','rkdtjdwls','강성진',252,'VIP',to_date('20170808', 'YYYYMMDD'));
+insert into testuser values('rkdwjdgh','rkdwjdgh','강정호',17,'VIP',to_date('20171024', 'YYYYMMDD'));
+insert into testuser values('rnjsdhwns','rnjsdhwns','권오준',3201,'VIP',to_date('20160203', 'YYYYMMDD'));
+insert into testuser values('rlaxodn','rlaxodn','김태우',589,'VIP',to_date('20170522', 'YYYYMMDD'));
+insert into testuser values('rlaguswls','rlaguswls','김현진',3083,'VIP',to_date('20160819', 'YYYYMMDD'));
+insert into testuser values('qkrwjdgh','qkrwjdgh','박정호',876,'VIP',to_date('20180407', 'YYYYMMDD'));
+insert into testuser values('qkrwlstn','qkrwlstn','박진수',2690,'일반',to_date('20171203', 'YYYYMMDD'));
+insert into testuser values('dlwpgh','dlwpgh','이제호',4264,'일반',to_date('20170104', 'YYYYMMDD'));
+insert into testuser values('wjdtpdud','wjdtpdud','정세영',582,'일반',to_date('20170901', 'YYYYMMDD'));
+insert into testuser values('wjdwlsdnd','wjdwlsdnd','정진웅',4505,'일반',to_date('20160622', 'YYYYMMDD'));
+insert into testuser values('whtpdud','whtpdud','조세영',3585,'일반',to_date('20160718', 'YYYYMMDD'));
+insert into testuser values('whgustjd','whgustjd','조현성',2839,'일반',to_date('20180401', 'YYYYMMDD'));
+insert into testuser values('chlqjatjr','chlqjatjr','최범석',4667,'일반',to_date('20170224', 'YYYYMMDD'));
+insert into testuser values('gjdnjstjr','gjdnjstjr','허원석',1129,'일반',to_date('20180614', 'YYYYMMDD'));
+insert into testuser values('ghkddlsqls','ghkddlsqls','황인빈',3051,'관리자',to_date('20180607', 'YYYYMMDD'));
