@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class Test02 {
+public class Send_insert_basic {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 
