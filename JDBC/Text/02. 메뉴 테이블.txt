@@ -1,4 +1,5 @@
-create table menu(
-name varchar2(30),
-price number(5)
+create table login(
+¾ÆÀÌµğ varchar2(30),
+pw varchar2(30),
+text varchar2(60)
 );
